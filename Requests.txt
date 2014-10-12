@@ -1,0 +1,35 @@
+*** settings ***
+Library           Collections
+Library           requests
+Library           Dialogs
+
+*** test cases ***
+simpleRequest
+    ${result} =    get    http://echo.jsontest.com/framework/robot-framework/api/rest
+    Log Many    ${result}    Paluu
+    Should Be Equal    ${result.status_code}    ${200}
+    ${json} =    Set Variable    ${result.json()}
+    #LOG    ${json}
+    ${a}=    catenate    ${json}    jason tulos
+    #Pause Execution    ${a}
+    ${framework} =    Get From Dictionary    ${json}    framework
+    LOG Many    ${framework}    Tulos
+    #Pause Execution    ${framework}
+    Should Be Equal    ${framework}    robot-framework
+    ${api} =    Get From Dictionary    ${json}    api
+    LOG Many    ${api}    Tulos
+    ${a}=    catenate    ${api}    api tulos
+    #Pause Execution    ${a}
+    Should Be Equal    ${api}    rest
+    json_property_should_equal    ${json}    api    ${api}
+
+*** keywords ***
+json_property_should_equal
+    [Arguments]    ${json}    ${property}    ${value_expected}
+    ${value_found} =    Get From Dictionary    ${json}    ${property}
+    Log Many    ${value_found}    Arvo loytyi
+    ${error_message} =    Catenate    SEPARATOR=    Expected value for property "    ${property}    " was "    ${value_expected}
+    ...    " but found "    ${value_found}    "
+    Should Be Equal As Strings    ${value_found}    ${value_expected}    ${error_message}    values=false
+
+http://laurent.bristiel.com/tag/tests/

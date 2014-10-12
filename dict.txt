@@ -1,0 +1,3 @@
+browser ie
+url www.google.com
+query Python

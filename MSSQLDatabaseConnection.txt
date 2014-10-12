@@ -1,0 +1,12 @@
+*** Settings ***
+Library           DatabaseLibrary
+
+*** Test Cases ***
+dataconnection
+    connect
+
+*** Keywords ***
+connect
+    Connect To Database    pymssql    DemoDataBase    ${EMPTY}    ${EMPTY}    localhost
+    Check If Exists In Database    select *from rows
+    Disconnect from Database

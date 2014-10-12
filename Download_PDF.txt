@@ -1,0 +1,17 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Dialogs
+
+*** Test Cases ***
+download pdf
+    pdf download
+
+*** Keywords ***
+pdf download
+    Open Browser    http://www.novapdf.com/kb/pdf-example-files-created-with-novapdf-138.html    ff
+    Click Element    xpath=.//*[@id='a-slot-content-117-blog-body-1']/ul/li[1]/a
+    Execute Javascript    window.focus()
+    Execute Javascript    window.close()
+    #Execute Javascript    confirm()
+    Pause Execution    Paused
+    #Press Key    13

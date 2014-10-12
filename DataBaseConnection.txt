@@ -1,0 +1,39 @@
+*** Settings ***
+Library           DatabaseLibrary
+Library           connpymssql.py
+Library           Collections
+Library           String
+
+*** Variables ***
+${first_column}    ${EMPTY}
+${second_column}    ${EMPTY}
+${third_column}    ${EMPTY}
+${fourth_column}    ${EMPTY}
+
+*** Test Cases ***
+connect mssql
+    connect
+
+*** Keywords ***
+connect
+    ${ret}    mssql    select *from rows    3    #second argument is table id (wanted row)
+    ${len}    Get Length    ${ret}
+    ${dic}=    Create Dictionary    #${first_column}    ${EMPTY}    ${second_column}    ${EMPTY}    ${third_column}
+    ...    #${EMPTY}    ${fourth_column}    ${EMPTY}
+    ${first_column}    Evaluate    ${ret}[0]
+    ${second_column}    Evaluate    ${ret}[1]
+    ${third_column}    Evaluate    ${ret}[2]
+    ${fourth_column}    Evaluate    ${ret}[3]
+    Set To Dictionary    ${dic}    0    ${first_column}
+    Set To Dictionary    ${dic}    1    ${second_column}
+    Set To Dictionary    ${dic}    2    ${third_column}
+    Set To Dictionary    ${dic}    3    ${fourth_column}
+    Log    ${dic}
+    #${b}    Evaluate    0
+    #${len}    Get Length    ${ret}
+    #@{words} =    Split String    ${ret}    ${SPACE}
+    #Convert To Integer    ${len}
+    #:FOR    ${i}    IN RANGE    ${len}
+    #    Log    ${ret}[${b}]
+    #    Append To List    ${columns}    ${ret}[${b}]
+    #    ${b}    Evaluate    ${b} + 1

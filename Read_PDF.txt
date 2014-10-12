@@ -1,0 +1,22 @@
+*** Settings ***
+Library           ../read_pdf.py
+Library           String
+Library           Collections
+Library           Dialogs
+
+*** Test Cases ***
+Read PDF File
+    read_pdf
+
+*** Keywords ***
+read_pdf
+    ${ret}=    getPDFContent    C:\\Users\\Timo\\Desktop\\Robot Framework\\Robot Framework\\mysql_connection\\test.pdf
+    ${userid}=    Set Variable    9999
+    ${username}=    Set Variable    timok
+    ${listUI}=    Create List
+    Append To List    ${listUI}    ${username}
+    Append To List    ${listUI}    ${userid}
+    #Append To List    ${listUI}    kissa
+    #Log    ${ret}
+    Run Keyword And Continue On Failure    List Should Contain Value    ${ret}=    ${username}    Values doesn't matches
+    List Should Contain Sub List    ${ret}    ${listUI}

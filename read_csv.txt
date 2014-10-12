@@ -1,0 +1,14 @@
+*** Settings ***
+Library           read_csv.py
+
+*** Variables ***
+${val}            ${EMPTY}
+
+*** Testcases ***
+CSVRobot
+    csv
+
+*** Keywords ***
+csv
+    ${val}=    read_csv
+    Should Contain    ${val}    dog    List does't contain expected value

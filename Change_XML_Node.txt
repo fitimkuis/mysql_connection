@@ -1,0 +1,11 @@
+*** Settings ***
+Library           Xml.py
+
+*** Test Cases ***
+Change Node
+    change xml node
+
+*** Keywords ***
+change xml node
+    ${elelment}    get element    title    1    #first argument node name and second argument index of which node text will changes
+    replaceText    Changed Node Text    title    1

@@ -1,0 +1,22 @@
+*** Settings ***
+Library           Date.py
+
+*** Test Cases ***
+check numbers
+    check
+
+*** Keywords ***
+check
+    [Documentation]    Example test ${EMPTY}    # documention
+    Should Be Equal As Numbers    ${4}    4
+    Should Be Equal As Strings    kolme    kolme    # string check
+    Should Contain    yksikaksi    kaksi    # Fails if item1 does not contain item2 one or more times
+    Should Match Regexp    ${output}    ^\\d{6}$    # only six numbers
+    # ${value}= Get Value From User xx-xx-xxxx # user puts value in to inputbox
+    ${rows}=    get rows
+    Should Match Regexp    ${date}    ^\\d{2}-\\d{2}-\\d{4}$    # only pattern xx-xx-xxxx
+    : FOR    ${index}    IN RANGE    1    ${rows}
+    \    ${ret}    ${ind}=    read date    # return two values
+    \    Should Match Regexp    ${ret}    ^\\d{4}-\\d{2}-\\d{2}$
+    \    Log    ${ind}
+    Close Date

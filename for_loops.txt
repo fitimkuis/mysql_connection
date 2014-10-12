@@ -1,0 +1,11 @@
+*** Test Cases ***
+for_loop
+    [Tags]    verify
+    for
+
+*** Keywords ***
+for
+    : FOR    ${animal}    IN    cat    dog
+    \    Log    ${animal}
+    : FOR    ${index}    IN RANGE    10
+    \    Log    ${index}

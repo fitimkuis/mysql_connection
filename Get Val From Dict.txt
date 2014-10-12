@@ -1,0 +1,47 @@
+*** Settings ***
+Library           OperatingSystem
+Library           String
+Library           Collections
+Library           Selenium2Library
+Library           Dialogs
+
+*** Variables ***
+${FF_PROFILE_DIR}    ${CURDIR}/profile
+
+*** Test Cases ***
+get_val
+    get
+
+*** Keywords ***
+get
+    ${data}=    Get File    C:\\Users\\Timo\\Desktop\\Robot Framework\\Robot Framework\\mysql_connection\\dict.txt    encoding=UTF-8    #get configuration data
+    ${counter}=    Evaluate    0    #set counter to 1
+    Convert To Integer    ${counter}    #convert counter to integer
+    @{values}=    Split String    ${data}    #split data to list
+    : FOR    ${element}    IN    @{values}    #loop throug list
+    \    ${counter}=    Evaluate    ${counter} + 1    #increase counter by 1
+    \    Convert To Integer    ${counter}
+    \    Log    ${element}
+    Log    ${counter}
+    ${dict} =    Create dictionary    #create dictionary named dict
+    ${a}=    Evaluate    0
+    ${b}=    Evaluate    1
+    Convert To Integer    ${a}
+    Convert To Integer    ${b}
+    Convert To Integer    ${counter}
+    : FOR    ${index}    IN RANGE    0    ${counter}/2    #count of list items
+    \    set to dictionary    ${dict}    @{values}[${a}]    @{values}[${b}]    #add key - value pair to dictionary
+    \    Log Many    a value    ${a}
+    \    ${a}=    Evaluate    ${a}+2    #increase a by 2
+    \    Convert To Integer    ${a}
+    \    ${b}=    Evaluate    ${b}+2    #increase b by 2
+    \    Convert To Integer    ${b}
+    \    #log    ${index}
+    Log Dictionary    ${dict}
+    ${url} =    Get From Dictionary    ${dict}    url    #get value from dictionary
+    ${browser} =    Get From Dictionary    ${dict}    browser    #get value from dictionary
+    Open Browser    ${url}    ${browser}    #open browser
+    ${gserch}=    Get From Dictionary    ${dict}    query
+    Wait Until Keyword Succeeds    20    1    Input Text    gbqfq    ${gserch}
+    Wait Until Keyword Succeeds    20    1    Click Element    gbqfb
+    Close Browser

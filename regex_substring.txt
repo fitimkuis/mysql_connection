@@ -1,0 +1,12 @@
+*** Settings ***
+Library           regexpattern.py
+
+*** Test Cases ***
+regex
+    substring
+
+*** Keywords ***
+substring
+    ${sub}    substring_regex    $0 - 199.99
+    ${sub2}    start_end    $0 - 199.99-AA
+    ${sub3}    start_end_email    blaa timo.kuisma@sci.fi blaa blaa

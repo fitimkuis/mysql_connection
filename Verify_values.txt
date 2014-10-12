@@ -1,0 +1,14 @@
+*** Settings ***
+Library           Mysql.py
+
+*** Test Cases ***
+Verify
+    [Tags]    verify
+    two files
+
+*** Keywords ***
+two files
+    ${ret}=    read_excel
+    batch_file
+    #${ret}=    Run Keyword And Continue On Failure    two values    Timo    Tapsa
+    #${ret}=    two values    Timo    Timo

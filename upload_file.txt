@@ -1,0 +1,16 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Test Cases ***
+upload_ff
+    Open Browser    https://www.facebook.com/?stype=lo&jlou=AfftswNmuFrImebbwROHiNmWk_WuWWGR7ECljQZlzrDAIwdF90i_57oLjxNjCNJHPa_ZKbYwp1E4SFOcA9vr2il9&smuh=47710&lh=Ac8T8Uqt6j4uWNX5    ff
+    Set selenium speed    0.3
+    Input Text    xpath=.//*[@id='email']    timo.kuisma@sci.fi
+    Input Text    xpath=.//*[@id='pass']    ModeeMi54
+    Wait Until Keyword Succeeds    20    1    Click Element    xpath=.//*[@id='u_0_l']
+    Wait Until Keyword Succeeds    20    1    Click Element    xpath=.//*[@id='blueBarNAXAnchor']/div[1]/div/div/div/ul/li[1]/a
+    #Wait Until Keyword Succeeds    20    1    Click Element    xpath=.//*[@id='u_jsonp_4_3']/a[3]
+    Wait Until Keyword Succeeds    20    1    Click Element     xpath=//*[normalize-space(text())='Kuvat']
+    #Wait Until Keyword Succeeds    20    1    Click Element     xpath=//*[normalize-space(text())='Luo albumi']
+    #Wait Until Keyword Succeeds    20    1    Click Element    xpath=.//*[@id='js_15']
+    Wait Until Keyword Succeeds    20    1    Choose File     xpath=//*[normalize-space(text())='Luo albumi']    C:\\Users\\Timo\\Pictures\\Laitteesta NOKIA Lumia 800\\Filmirulla\\aulanko2.jpg

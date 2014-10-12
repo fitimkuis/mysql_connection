@@ -1,0 +1,30 @@
+*** Settings ***
+Library           Mysql.py
+Library           Screenshot
+Library           Selenium2Library
+
+*** Test Cases ***
+mysql
+    [Tags]    verify
+    mysli
+
+*** Keywords ***
+mysli
+    #win_32api
+    #${count}=    connect    0
+    #Convert To Integer    ${count}
+    ${range}=    Get Range    #get used cells range
+    Convert To Integer    ${range}
+    : FOR    ${index}    IN RANGE    ${range}
+    \    ${ret}=    read_excel    #return excel cell
+    \    should not be empty    ${ret}    #check that cell is not empty
+    \    Run Keyword And Continue On Failure    check length    ${ret}
+    \    ${ret2}=    read_excel2
+    \    should not be empty    ${ret2}
+    \    Run Keyword And Continue On Failure    check length    ${ret2}
+    \    Run Keyword And Continue On Failure    two values    ${ret}    ${ret2}
+    batch_file
+    #close_excel
+    # Run Keyword And Ignore Error
+    #Register Keyword To Run On Failure
+    #Run Keyword And Continue On Failure    Fail    This is a stupid example    log

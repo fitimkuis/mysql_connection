@@ -1,0 +1,17 @@
+*** Settings ***
+Library           Xml.py
+
+*** Test Cases ***
+xml_check
+    xml
+
+*** Keywords ***
+xml
+    ${cells}=    get_cells
+    : FOR    ${index}    IN RANGE    1    ${cells}
+    \    ${ret}=    Read XmlExcel
+    \    Should Not Be Empty    ${ret}
+    ${rows}=    get_rows
+    : FOR    ${index}    IN RANGE    1    ${rows}
+    \    ${ret}=    Read Dates
+    \    Should Match Regexp    ${ret}    ^\\d{2}-\\d{2}-\\d{4}$
