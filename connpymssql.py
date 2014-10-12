@@ -15,7 +15,7 @@ def mssql(query,find):
     c.execute (query)
     rs = c.fetchall()
     for r in rs:
-        print "id %d fname %s lname %s "%(r[0],r[1],r[2])
+        #print "id %d fname %s lname %s "%(r[0],r[1],r[2])
         if r[0] == f:
             db.close()
             return r
