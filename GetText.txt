@@ -1,0 +1,19 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Library           Selenium2Library
+
+*** Test Cases ***
+get_text
+    [Setup]
+    get
+    [Teardown]
+
+*** Keywords ***
+get
+    Open Browser    https://www.google.fi    ff
+    Wait Until Keyword Succeeds    20    1    Input Text    id=gbqfq    Tappara
+    Wait Until Keyword Succeeds    20    1    Click Element    xpath=html/body/div[1]/div[2]/div[1]/div[1]/div[3]/div/div/div/form/div[1]/button
+    Click Element    xpath=.//*[@id='sb_ifc0']
+    #${text}    Get All Texts    xpath=.//*[@id='gs_htif0']
+    #${text}    Get Element Attribute    css=#gs_htif0
