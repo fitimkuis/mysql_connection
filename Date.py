@@ -15,7 +15,7 @@ class Date(object):
         self.i = 0
         self.count = 0
         self.count2 = 0
-        file_name =  'C:\\Python27\\Scripts\\mysql_connection\\date.xls'
+        file_name =  'C:\\Users\\Timo\\Desktop\\Robot Framework\\Robot Framework\\mysql_connection\\date.xls'
         self.xlApp = Dispatch ("Excel.Application")   #Calls for Excel
         self.xlApp.Visible = 1
         self.xlWb = self.xlApp.Workbooks.Open(file_name)    #It finds the workbook

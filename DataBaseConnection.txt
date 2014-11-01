@@ -16,7 +16,11 @@ connect mssql
 
 *** Keywords ***
 connect
-    ${ret}    mssql    select *from rows    3    #second argument is table id (wanted row)
+    @{ret}    mssql    select *from rows    3    #second argument is table id (wanted row)
+    @{column_value_list}=      Convert Column Values of Records to List    0     @{ret}
+    ${elem}=     Set Variable    @{ret}[0]
+    Comment    Log    ${elem[1]}
+    Comment    Log Many    ${ret[1][0]}    ${ret[1][1]}
     ${len}    Get Length    ${ret}
     ${dic}=    Create Dictionary    #${first_column}    ${EMPTY}    ${second_column}    ${EMPTY}    ${third_column}
     ...    #${EMPTY}    ${fourth_column}    ${EMPTY}
@@ -37,3 +41,12 @@ connect
     #    Log    ${ret}[${b}]
     #    Append To List    ${columns}    ${ret}[${b}]
     #    ${b}    Evaluate    ${b} + 1
+
+Convert Column Values of Records to List
+    [Arguments]    ${column}=0    @{records}
+    @{column_value_list}=    Create List
+    :FOR    ${value}    IN    @{records}
+    \    Log     ${value}
+    \    Append To List    @{column_value_list}     ${value}
+    # ${value[${column}]}
+    [Return]    @{column_value_list}

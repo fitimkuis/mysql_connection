@@ -1,11 +1,17 @@
 
 # modules we're using (you'll need to download lxml)
-import lxml.html, urllib2, urlparse
+import lxml.html, urllib2, urlparse, os
 import urllib
 import requests
 import wget  #pip install wget
 
 class pdf():
+
+    def download_os(self):
+        # if you comment out this line, it will download to the directory from which you run the script.
+        os.chdir('C:\\Users\\Timo\\Desktop\\Robot Framework\\Robot Framework\\mysql_connection\\testdir')
+        url = 'http://www.novapdf.com/uploads/novapdf_en/media_items/pdf-example-encryption.original.pdf'
+        print urllib.urlretrieve(url)
     
     def download(self,url):
         #print url
@@ -44,12 +50,14 @@ class pdf():
         #print data
         #,"C:\\Users\\Timo\\Desktop\\url"
 
-    def create_profile(self):
+    def create_profile(self,dirpath):
+        print "Debug saving path "+dirpath
         from selenium import webdriver
         fp =webdriver.FirefoxProfile()
         fp.set_preference("browser.download.folderList",2)
         fp.set_preference("browser.download.manager.showWhenStarting",False)
-        fp.set_preference("browser.download.dir",'C:\\Users\\Timo\\Desktop\\url')
+        fp.set_preference("browser.download.dir",dirpath)
+        #fp.set_preference("browser.download.dir",'C:\\Users\\Timo\\Desktop\\url')
         #fp.set_preference("browser.helperApps.neverAsk.saveToDisk",'application/pdf')
         fp.set_preference('browser.helperApps.neverAsk.saveToDisk', 'text/plain, application/pdf, application/vnd.ms-excel, text/csv, text/comma-separated-values, application/octet-stream, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         fp.set_preference("browser.helperApps.alwaysAsk.force", False);
@@ -58,7 +66,9 @@ class pdf():
         fp.update_preferences()
         return fp.path
 
-#ob = pdf()
+ob = pdf()
+ob.download_os()
+
 #y = ob.getpdf('http://www.novapdf.com/uploads/novapdf_en/media_items/pdf-example-encryption.original.pdf')
 #print "#########################################################"
 #print "fetched val is %s "%y

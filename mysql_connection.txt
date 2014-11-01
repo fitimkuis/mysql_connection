@@ -1,7 +1,7 @@
 *** Settings ***
-Library           Mysql.py
 Library           Screenshot
 Library           Selenium2Library
+Library           Mysql.py
 
 *** Test Cases ***
 mysql
@@ -13,7 +13,7 @@ mysli
     #win_32api
     #${count}=    connect    0
     #Convert To Integer    ${count}
-    ${range}=    Get Range    #get used cells range
+    ${range}=    get_range    #get used cells range
     Convert To Integer    ${range}
     : FOR    ${index}    IN RANGE    ${range}
     \    ${ret}=    read_excel    #return excel cell

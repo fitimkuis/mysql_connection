@@ -1,0 +1,63 @@
+*** Settings ***
+Library           Selenium2Library
+Library           String
+Library           Collections
+Library           Dialogs
+
+*** Variables ***
+@{citem}          1    40    12,30    0,01    0,10    New Value    Six
+...               Posse
+@{my_list}        one    two    three    four    five
+
+*** Test Cases ***
+Run Keyword If
+    Run
+
+*** Keywords ***
+Run
+    ${val}=    Set Variable    12,30
+    ${fee}=    Set Variable    0,01
+    ${code}=    Set Variable    EUR
+    Log    ${val}
+    ${s}=    Split String    ${val}    ,
+    ${s2}=    catenate    SEPARATOR=    ${s[0]}    ${s[1]}
+    ${a}=    Evaluate    1
+    ${s}=    Run Keyword If    ${a}==1    Split String    ${val}    ,
+    ${val}=    Run Keyword If    ${a}==1    catenate    SEPARATOR=    ${s[0]}    ${s[1]}
+    Log    ${val}
+    Comment    ${a}=    Evaluate    ${a} + 1
+    Comment    ${fee}=    Run Keyword If    ${a} == 2    Evaluate    1
+    Comment    ${a}=    Evaluate    ${a} + 1
+    Comment    ${code}=    Run Keyword If    ${a}==3    Set Variable    978
+    Comment    ${a}=    Evaluate    ${a} + 1
+    Comment    ${card}=    Run Keyword If    ${a}==4    Set Variable    Visa
+    ${table}=    Create List
+    #${b}=    Set Variable    1
+    : FOR    ${x}    IN RANGE    8
+    \    ${c}    Set Variable    @{citem}[${x}]
+    \    Run Keyword If    ${x}==0 or ${x}==1 or ${x}==6 or ${x}==7    Append To List    ${table}    ${c}
+    \    Run Keyword If    ${x}==2    Append To List    ${table}    1230
+    \    Run Keyword If    ${x}==3    Append To List    ${table}    1
+    \    Run Keyword If    ${x}==4    Append To List    ${table}    10
+    \    Run Keyword If    ${x}==5    Append To List    ${table}    New Value
+    Log    ${table}
+    Comment    Run Keyword If    ${c}==1    Append To List    ${table}    \    1230
+    Comment    #${c}    Run Keyword If    ${c}==12,30    Set Variable    1230
+    Comment    Run Keyword If    ${c}==12,30    Append To List    ${table}    \    1230
+    Comment    ##${c}    Run Keyword If    ${a}==2    Set Variable    ${c}
+    Comment    ##Run Keyword If    ${a}==2    Append To List    ${table}    978
+    Comment    #${c}    Run Keyword If    ${a}==3    Set Variable    1
+    Comment    Run Keyword If    ${c}==0,01    Append To List    ${table}    \    Visa
+    Comment    #${c}    Run Keyword If    ${a}==4    Set Variable    10
+    Comment    Run Keyword If    ${c}==0,10    Append To List    ${table}
+    Comment    Append To List    ${table}    ${c}
+    Comment    Run Keyword If    ${a}==5    Exit For Loop
+    Comment    ${b}=    Evaluate    ${b}+ 1
+    Comment    ${a}=    Evaluate    ${a} + 1
+    Comment    Log    ${table}
+    Comment    ${dblist}    Create List
+    Comment    Append To List    ${dblist}    Visa
+    Comment    Append To List    ${dblist}    1230
+    Comment    Append To List    ${dblist}    1
+    Comment    Append To List    ${dblist}    10
+    Comment    Lists Should Be Equal    ${dblist}    ${table}

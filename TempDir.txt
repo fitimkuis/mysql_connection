@@ -1,0 +1,12 @@
+*** Settings ***
+Library           OperatingSystem
+Library           Selenium2Library
+
+*** Test Cases ***
+tempdir
+    temp
+
+*** Keywords ***
+temp
+    Create Directory    ${TEMPDIR}/stuff
+    Log    ${CURDIR}${\}TEMP

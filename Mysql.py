@@ -60,7 +60,7 @@ class Mysql(object):
 		#f.close()
         return str(elist)
 
-    def connect_mssql(self)
+    def connect_mssql(self):
         CONNECTION_STRING="""
         Driver={SQL Server Native Client 11.0};
         Server=localhost\sqlexpress;
@@ -306,12 +306,12 @@ class Mysql(object):
 OBJECT = Mysql()
 #time.sleep(3)
 #os.system("C:/Users/Timo/Desktop/Robot Framework/Robot Framework/mysql_connection/KillExcel.bat")
-filepath="C:/Users/Timo/Desktop/Robot Framework/Robot Framework/mysql_connection/KillExcel.bat"
-p = subprocess.Popen(filepath, shell=True, stdout = subprocess.PIPE)
-stdout, stderr = p.communicate()
-print p.returncode # is 0 if success
+#filepath="C:/Users/Timo/Desktop/Robot Framework/Robot Framework/mysql_connection/KillExcel.bat"
+#p = subprocess.Popen(filepath, shell=True, stdout = subprocess.PIPE)
+#stdout, stderr = p.communicate()
+#print p.returncode # is 0 if success
 #OBJECT.batch_file
-print "Excel files are closed"
+#print "Excel files are closed"
 #OBJECT.close_excel2
 #OBJECT.vertaa("Timo","Matti")                                
 #luku = OBJECT.get_range()

@@ -3,6 +3,7 @@ Library           ../read_pdf.py
 Library           String
 Library           Collections
 Library           Dialogs
+Library           OperatingSystem
 
 *** Test Cases ***
 Read PDF File
@@ -10,13 +11,18 @@ Read PDF File
 
 *** Keywords ***
 read_pdf
-    ${ret}=    getPDFContent    C:\\Users\\Timo\\Desktop\\Robot Framework\\Robot Framework\\mysql_connection\\test.pdf
+    ${file}    Get File    ${CURDIR}\\test.txt
+    ${split}    Split String    ${file}    ${SPACE}
+    Log    ${split[1]}
+    ${ret}=    getPDFContent    ${CURDIR}\\test.pdf
     ${userid}=    Set Variable    9999
     ${username}=    Set Variable    timok
     ${listUI}=    Create List
     Append To List    ${listUI}    ${username}
     Append To List    ${listUI}    ${userid}
+    Log    ${listUI}
     #Append To List    ${listUI}    kissa
     #Log    ${ret}
-    Run Keyword And Continue On Failure    List Should Contain Value    ${ret}=    ${username}    Values doesn't matches
+    Log    ${ret}
+    List Should Contain Value    ${ret}    ${username}    Values doesn't matches
     List Should Contain Sub List    ${ret}    ${listUI}

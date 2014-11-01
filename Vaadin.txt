@@ -1,0 +1,73 @@
+*** Settings ***
+Library           Selenium2Library
+Library           ../Robot Framework/Robot Framework/mysql_connection/countries.py
+Library           Collections
+Library           Dialogs
+Library           countries.py
+Library           my_webdriver.py
+
+*** Variables ***
+${token}          1
+@{abc}            a    b    c
+@{numbers}        1    2    3    4    5    6    7
+...               8
+
+*** Test Cases ***
+vaadin
+    vaadin
+    #run vaadin
+
+iterate country list
+    abc loop
+    run keyword if test    ${token}
+    @{coutries}=    countries    #returns all countries from .py
+    ${counter}=    Evaluate    0
+    #Convert To Integer    ${counter}
+    ${listC}=    Create List
+    : FOR    ${item}    IN    @{coutries}
+    \    Log    ${item}
+    \    Append To List    ${listC}    ${item}
+    \    ${counter}=    Evaluate    ${counter} + 1
+    \    #Convert To Integer    ${counter}
+    Log    ${counter}
+    ${number}=    Evaluate    random.randint(1, 19)    random,sys    #generate random number between 1 -19
+    ${getList}=    Get From List    ${listC}    ${number}    #get random country from list
+
+*** Keywords ***
+run vaadin
+    Wait Until Keyword Succeeds    40    1    Open Browser    http://demo.vaadin.com/dashboard/    ff
+    Set selenium speed    0.3
+    #Wait Until Page Contains Element    30    1    id=gwt-uid-4
+    Wait Until Keyword Succeeds    30    1    input text    id=gwt-uid-4    timo
+    Wait Until Keyword Succeeds    20    1    input text    id=gwt-uid-6    timo
+    Wait Until Keyword Succeeds    20    1    click element    css=span.v-button-caption
+    Wait Until Keyword Succeeds    20    1    page should contain    Top 10 Titles by Revenue
+    #Wait Until Keyword Succeeds    30    1    click element    xpath=(//button[@type='button'])[5]
+    #Wait Until Keyword Succeeds    20    1    click element    css=#gwt-uid-17 > div.v-captiontext
+    #Wait Until Keyword Succeeds    20    1    page should contain    Tammy (Melissa McCarthy) is having a bad day. She's totaled her clunker car, gotten fired from her thankless job at a greasy burger joint and, instead of finding comfort at home, finds her husband getting comfortable with the neighbor in her own house. It's time to take her boom box and book it. The…
+    #Wait Until Keyword Succeeds    20    1    click element    css=#gwt-uid-17 > div.v-captiontext
+    Wait Until Keyword Succeeds    20    1    click element    xpath=(//button[@type='button'])[4]
+    #Wait Until Keyword Succeeds    20    1    click element    css=span.v-image-caption
+    #Wait Until Keyword Succeeds    20    1    page should contain    $574.13
+    Wait Until Keyword Succeeds    20    1    click element    xpath=(//button[@type='button'])[3]
+    Wait Until Keyword Succeeds    20    1    click element    xpath=(//button[@type='button'])[2]
+    #Wait Until Keyword Succeeds    20    1    Input Text    css=input.v-filterselect-input    Boyd    #input text field
+    Wait Until Keyword Succeeds    20    1    click element    css=div.v-filterselect-button    #button
+    ${num}=    evaluate    3
+    convert to integer    ${num}
+    Wait Until Keyword Succeeds    20    1    click element    xpath=.//div[@id='VAADIN_COMBOBOX_OPTIONLIST']/div/div[2]/table/tbody/tr[${num}]/td/span    #combobox option
+
+run keyword if test
+    [Arguments]    ${arg}
+    Run Keyword If    ${arg} == 1    Log    ${arg}
+    Log    Keyword ignored
+    Pause Execution    Paused
+
+abc loop
+    : FOR    ${item}    IN    @{abc}
+    \    Log    ${item}
+    \    number loop
+
+number loop
+    : FOR    ${item}    IN    @{numbers}
+    \    Log    ${item}

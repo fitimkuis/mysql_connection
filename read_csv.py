@@ -2,12 +2,12 @@
 #csv module.
 import csv
 
-class CSVfile(object):
+class CSVfile():
     def __init__(self):
         self.elist = []
 
     def read_csv(self):
-        path = 'animals.csv'
+        path = 'C:\\Users\\Timo\\Desktop\\Robot Framework\\Robot Framework\\mysql_connection\\animals.csv'
         
         with open(path, 'rb') as f:
             reader = csv.reader(f)
@@ -18,9 +18,9 @@ class CSVfile(object):
         f.close()
 
 
-read = CSVfile()
-b = read.read_csv()
-print b
+#read = CSVfile()
+#b = read.read_csv()
+#print b
 
 
 

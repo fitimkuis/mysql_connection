@@ -1,0 +1,10 @@
+*** Settings ***
+Library           my_webdriver.py
+
+*** Test Cases ***
+webdriver test
+    webdriver
+
+*** Keywords ***
+webdriver
+    ${title}    my_driver

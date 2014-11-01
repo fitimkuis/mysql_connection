@@ -12,25 +12,28 @@ ${FF_PROFILE}     C:\\Users\\Timo\\Desktop\\test
 *** Test Cases ***
 autoit
     Download File
-    test
+    downloadPdf
     \    #JSESSIONID    #http://www.novapdf.com/uploads/novapdf_en/media_items/pdf-example-encryption.original.pdf    file.pdf
     #Download File    JSESSIONID    http://www.novapdf.com/uploads/novapdf_en/media_items/pdf-example-encryption.original.pdf    file.pdf
     [Teardown]    Close Browser
 
 *** Keywords ***
-test
-    ${profile}=    create_profile
+downloadPdf
+    ${profile}=    create_profile    ${CURDIR}\\testdir
     Wait Until Keyword Succeeds    20    1    Selenium2Library.Open Browser    http://www.novapdf.com/kb/pdf-example-files-created-with-novapdf-138.html    ie    #ff_profile_dir=${profile}
     ${loc}=    Get Location    #get current page url
     ${str}=    Split String    ${loc}    /kb/pdf-example-files-created-with-novapdf-138.html
     Wait Until Keyword Succeeds    20    1    Click Element    xpath=.//*[@id='a-slot-content-117-blog-body-1']/ul/li[1]/a
-    Pause Execution    pdf downloaded
+    #Pause Execution    pdf downloaded
     ${ret}=    getpdf    ${loc}
 
 Download File
-    ${profile}=    create_profile
+    ${profile}=    create_profile    ${CURDIR}\\testdir
     Wait Until Keyword Succeeds    20    1    open browser    http://file-sample.com/xlsx/    ff    ff_profile_dir=${profile}
     Wait Until Keyword Succeeds    20    1    Click Element    xpath=.//*[@id='post-41']/div[2]/h3[1]/a
+    Sleep    3
+    List Directory    ${CURDIR}\\testdir
+    #${file}    Get File    ${CURDIR}\\testdir
     #Pause Execution    pdf downloaded
     #${COOKIE_VALUE} =    Call Selenium API    get_cookie_by_name    ${COOKIE}
     #Run and Return RC    wget --cookies=on --header "Cookie: ${COOKIE}=${COOKIE_VALUE}" -O ${OUTPUT_DIR}${/}${FILENAME} ${URL}

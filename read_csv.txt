@@ -1,5 +1,5 @@
 *** Settings ***
-Library           read_csv.py
+Library           csvRead.py
 
 *** Variables ***
 ${val}            ${EMPTY}
@@ -10,5 +10,5 @@ CSVRobot
 
 *** Keywords ***
 csv
-    ${val}=    read_csv
+    ${val}=    rcsv
     Should Contain    ${val}    dog    List does't contain expected value
